@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import ca.bell.nmf.feature.wifioptimization.ui.troubleshooting.model.TroubleshootCMSResponse
 import com.example.jsonreaderapp.databinding.ActivityMainBinding
+import com.google.gson.Gson
 import java.io.BufferedReader
-import java.io.FileInputStream
-import java.io.InputStream
 import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity() {
@@ -58,12 +58,17 @@ class MainActivity : AppCompatActivity() {
                     total.append(line).append('\n')
                 }
                 val content = total.toString()
+                    .also { Gson().fromJson(total.toString(), TroubleshootCMSResponse::class.java) }
+
                 Log.d("file", content)
-                textViewText.text=content
+                textViewText.text = content
+
 
             } catch (e: java.lang.Exception) {
             }
 
         }
     }
+
+
 }
